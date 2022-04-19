@@ -1,14 +1,50 @@
+from turtle import pos
 from django.shortcuts import render
-from rest_framework import generics
-from .serializers import BlogSerializer, PostSerializer
+from rest_framework import generics, status
+from .serializers import BlogSerializer, PostSerializer, CreatePostSerializer
 from .models import Blog, Post
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
 # Create your views here.
-
 class BlogView(generics.ListAPIView):
     queryset = Blog.objects.all()
     serializer_class = BlogSerializer
 
-class PostView(generics.CreateAPIView):
+class PostView(generics.ListAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+
+class CreatePostView(APIView):
+    serializer_class = CreatePostSerializer
+
+    def post(self, request, format=None):
+        if not self.request.session.exists(self.request.session.session_key):
+            self.request.session.create()
+        
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            blog_name = serializer.data.get('blog_name')
+            image_url = serializer.data.get('image_url')
+            content   = serializer.data.get('content')
+            title     = serializer.data.get('title')
+            queryset  = Post.objects.filter(title=title)
+
+            if queryset.exists():
+                post = queryset[0]
+                post.blog_name = blog_name
+                post.image_url = image_url
+                post.content = content
+                post.save(
+                    update_fields=['blog_name', 'image_url', 'content'])
+            else:
+                post = Post(
+                    blog_name=blog_name,
+                    image_url=image_url,
+                    content=content,
+                    title=title)
+                post.save()
+            
+            return Response(PostSerializer(post).data, status=status.HTTP_201_CREATED)
+        
+        return Response({'Bad Request': 'Invalid data...'}, status=status.HTTP_400_BAD_REQUEST)

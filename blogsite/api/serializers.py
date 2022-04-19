@@ -9,4 +9,9 @@ class BlogSerializer(serializers.ModelSerializer):
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
-        fields = ('blog_name', 'upload_date', 'image_url', 'content')
+        fields = ('blog_name', 'title', 'upload_date', 'image_url', 'content')
+
+class CreatePostSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Post
+        fields = ('blog_name', 'title', 'image_url', 'content')
