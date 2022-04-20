@@ -6,11 +6,11 @@ export default class PostPage extends Component
     {
         super(props);
         this.state = {
-            blog_name: "Some blog",
-            title: "This is title",
-            upload_date: "05.12.1998",
+            blog_name: "",
+            title: "",
+            upload_date: "",
             image_url: "https://www.ndca.org/co/images/stock/no-image.png",
-            content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque mattis tortor eu faucibus mattis. Pellentesque justo arcu, viverra quis velit vitae, molestie laoreet diam. Ut vehicula, nisl vel rutrum imperdiet, libero diam eleifend nibh, et porttitor lorem arcu ac mi. Suspendisse sagittis nibh ipsum, a laoreet tortor bibendum ac. Donec blandit felis mauris, vitae accumsan ex luctus eget. Praesent quam mi, maximus sed laoreet ac, luctus id ex. Nunc et urna in mi bibendum iaculis id sit amet sem. Morbi accumsan finibus massa, vel iaculis metus convallis ac. Fusce nec turpis eget velit aliquet tincidunt sit amet sit amet arcu. Etiam massa purus, ornare et ultrices vitae, accumsan in augue. Mauris dapibus semper lectus, eget faucibus erat pellentesque eu. Donec lacinia libero risus, nec finibus risus fringilla eu. Morbi nisl orci, dictum eu diam ac, pellentesque tincidunt elit."
+            content: ""
         }
         this.postId = window.location.pathname.substr(window.location.pathname.lastIndexOf('/') + 1);
         this.getPostDetails();
