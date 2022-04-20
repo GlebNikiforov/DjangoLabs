@@ -25,7 +25,7 @@ export default class HomePage extends Component
                 <Routes>
                     <Route exact path="/" element={<p>Home page</p>} />
                     <Route path="/blog" element={<BlogPage />} />
-                    <Route path="/post" element={<PostPage />} />
+                    <Route path="/post/:postId" element={<PostPage />} />
                     <Route path="/createpost" element={<CreatePostPage />} />
                 </Routes>
             </Router>

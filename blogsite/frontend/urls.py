@@ -4,6 +4,6 @@ from .views import index
 urlpatterns = [
     path('', index),
     path('blog', index),
-    path('post', index),
+    path('post/<int:postId>', index),
     path('createpost', index)
 ]

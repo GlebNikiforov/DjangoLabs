@@ -62,7 +62,7 @@ export default class CreatePostPage extends Component {
         };
         fetch("api/createpost", requestOptions)
             .then((response) => response.json())
-            .then((data)     => console.log(data));
+            .then((data)     => window.location.pathname = '/');
     }
 
     render() {
