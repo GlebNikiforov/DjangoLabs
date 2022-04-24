@@ -37,15 +37,15 @@ export default class PostPage extends Component
     {
         return (
             <div>
-                <img src={this.state.image_url} style={{height: 240, width: "100%", objectFit: "cover"}}></img>
-                <Divider />
+                <img src={this.state.image_url} style={{height: 360, width: "100%", objectFit: "cover"}}></img>
+                
                 <Typography component="h4" variant="h4" align="center">
                     {this.state.title}
                 </Typography>
                 <Typography variant="subtitle1" align="right">
                     {this.state.blog_name} ({this.state.upload_date})
                 </Typography>
-                <Divider />
+                
                 <Typography variant="body1">
                     {this.state.content}
                 </Typography>
