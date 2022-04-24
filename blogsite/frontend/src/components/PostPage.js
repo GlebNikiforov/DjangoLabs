@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import {
+    Divider,
+    Typography } from "@material-ui/core";
 
 export default class PostPage extends Component
 {
@@ -35,9 +38,17 @@ export default class PostPage extends Component
         return (
             <div>
                 <img src={this.state.image_url} style={{height: 240, width: "100%", objectFit: "cover"}}></img>
-                <h4 align={"center"}>{this.state.title}</h4>
-                <p align={"right"}>{this.state.blog_name} <span>({this.state.upload_date})</span></p>
-                <div>{this.state.content}</div>
+                <Divider />
+                <Typography component="h4" variant="h4" align="center">
+                    {this.state.title}
+                </Typography>
+                <Typography variant="subtitle1" align="right">
+                    {this.state.blog_name} ({this.state.upload_date})
+                </Typography>
+                <Divider />
+                <Typography variant="body1">
+                    {this.state.content}
+                </Typography>
             </div>
         );
     }

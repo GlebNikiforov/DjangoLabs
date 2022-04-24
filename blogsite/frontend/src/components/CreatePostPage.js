@@ -4,11 +4,7 @@ import {
     Grid,
     Typography,
     TextField,
-    FormHelperText,
-    FormControl,
-    Radio,
-    RadioGroup,
-    FormControlLabel } from "@material-ui/core";
+    FormControl } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
 
@@ -19,7 +15,11 @@ export default class CreatePostPage extends Component {
             blog_name: "",
             title: "",
             image_url: "",
-            content: ""
+            content: "",
+            errorBlogName: "",
+            errorPostTitle: "",
+            errorImageUrl: "",
+            errorContent: ""
         }
         
         this.handleBlogNameChange = this.handleBlogNameChange.bind(this);
@@ -33,23 +33,49 @@ export default class CreatePostPage extends Component {
         this.setState({
             blog_name: e.target.value,
         });
+        this.setState({errorBlogName: ""});
     }
     handleTitleChange(e) {
         this.setState({
             title: e.target.value,
         });
+        this.setState({errorPostTitle: ""});
     }
     handleImageUrlChange(e) {
         this.setState({
             image_url: e.target.value,
         });
+        this.setState({errorImageUrl: ""});
     }
     handleContentChange(e) {
         this.setState({
             content: e.target.value,
         });
+        this.setState({errorContent: ""});
+    }
+    hasErrors() {
+        if (this.state.blog_name == "") {
+            this.setState({errorBlogName: "Blog name required"});
+            return true;
+        }
+        if (this.state.title == "") {
+            this.setState({errorPostTitle: "Post title required"});
+            return true;
+        }
+        if (this.state.image_url == "") {
+            this.setState({errorImageUrl: "Image url required"});
+            return true;
+        }
+        if (this.state.content == "") {
+            this.setState({errorContent: "Post content required"});
+            return true;
+        }
+        return false;
     }
     handlePublishButtonPressed() {
+        if (this.hasErrors()) {
+            return;
+        }
         const requestOptions = {
             method: "POST",
             headers: { "Content-Type": "application/json"},
@@ -74,61 +100,49 @@ export default class CreatePostPage extends Component {
                     </Typography>
                 </Grid>
                 <Grid item xs={12} align="center">
-                    <FormControl style={{width: '58%'}}>
+                    <FormControl fullWidth>
                         <TextField
                             required={true}
                             fullWidth
                             type="text"
-                            onChange={this.handleBlogNameChange} />
-                        <FormHelperText>
-                            <div align="center">
-                                Blog name
-                            </div>
-                        </FormHelperText>
+                            onChange={this.handleBlogNameChange}
+                            error={this.state.errorBlogName}
+                            helperText={this.state.errorBlogName || "Blog name"} />
                     </FormControl>
                 </Grid>
                 <Grid item xs={12} align="center">
-                    <FormControl style={{width: '58%'}}>
+                    <FormControl fullWidth>
                         <TextField
                             required={true}
                             fullWidth
                             type="text"
-                            onChange={this.handleTitleChange}/>
-                        <FormHelperText>
-                            <div align="center">
-                                Post title
-                            </div>
-                        </FormHelperText>
+                            onChange={this.handleTitleChange}
+                            error={this.state.errorPostTitle}
+                            helperText={this.state.errorPostTitle || "Post title"} />
                     </FormControl>
                 </Grid>
                 <Grid item xs={12} align="center">
-                    <FormControl style={{width: '58%'}}>
+                    <FormControl fullWidth>
                         <TextField
                             required={true}
                             fullWidth
                             type="text"
-                            onChange={this.handleImageUrlChange}/>
-                        <FormHelperText>
-                            <div align="center">
-                                Image url
-                            </div>
-                        </FormHelperText>
+                            onChange={this.handleImageUrlChange}
+                            error={this.state.errorImageUrl}
+                            helperText={this.state.errorImageUrl || "Image url"} />
                     </FormControl>
                 </Grid>
                 <Grid item xs={12} align="center">
-                    <FormControl style={{width: '58%'}}>
+                    <FormControl fullWidth>
                         <TextField
                             required={true}
                             fullWidth
                             multiline
                             variant="outlined"
                             type="text"
-                            onChange={this.handleContentChange}/>
-                        <FormHelperText>
-                            <div align="center">
-                                Content
-                            </div>
-                        </FormHelperText>
+                            onChange={this.handleContentChange}
+                            error={this.state.errorContent}
+                            helperText={this.state.errorContent || "Content"} />
                     </FormControl>
                 </Grid>
                 <Grid item xs={6} align="center">
