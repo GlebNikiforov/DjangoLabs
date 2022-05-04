@@ -14,7 +14,7 @@ import {
     Container,
     Button, 
     Grid,
-    Paper} from "@material-ui/core";
+    Paper } from "@mui/material";
 
 export default class App extends Component
 {
@@ -41,16 +41,14 @@ export default class App extends Component
                     </AppBar>
                 </Grid>
                 <Grid item xs={12}>
-                    <Paper elevation={2} style={{padding: "2%"}}>
-                        <Router>
-                            <Routes>
-                                <Route exact path="/" element={<HomePage />} />
-                                <Route path="/blog" element={<BlogPage />} />
-                                <Route path="/post/:postId" element={<PostPage />} />
-                                <Route path="/createpost" element={<CreatePostPage />} />
-                            </Routes>
-                        </Router>
-                    </Paper>
+                    <Router>
+                        <Routes>
+                            <Route exact path="/" element={<HomePage />} />
+                            <Route path="/blog/:blogId" element={<BlogPage />} />
+                            <Route path="/post/:postId" element={<PostPage />} />
+                            <Route path="/createpost" element={<CreatePostPage />} />
+                        </Routes>
+                    </Router>
                 </Grid>
             </Grid>
         </div>);

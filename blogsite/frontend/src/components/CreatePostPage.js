@@ -4,7 +4,8 @@ import {
     Grid,
     Typography,
     TextField,
-    FormControl } from "@material-ui/core";
+    FormControl,
+    Paper } from "@mui/material";
 import { Link } from "react-router-dom";
 
 
@@ -93,69 +94,74 @@ export default class CreatePostPage extends Component {
 
     render() {
         return(
-            <Grid container spacing={1}>
-                <Grid item xs={12} align="center">
-                    <Typography component="h4" variant="h4">
-                        Post creation
-                    </Typography>
+            <Paper elevation={2} style={{padding: "2%"}}>
+                <Grid container spacing={1}>
+                    <Grid item xs={12} align="center">
+                        <Typography component="h4" variant="h4">
+                            Post creation
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={12} align="center">
+                        <FormControl fullWidth>
+                            <TextField
+                                variant="standard"
+                                required={true}
+                                fullWidth
+                                type="text"
+                                onChange={this.handleBlogNameChange}
+                                error={this.state.errorBlogName}
+                                helperText={this.state.errorBlogName || "Blog name"} />
+                        </FormControl>
+                    </Grid>
+                    <Grid item xs={12} align="center">
+                        <FormControl fullWidth>
+                            <TextField
+                                variant="standard"
+                                required={true}
+                                fullWidth
+                                type="text"
+                                onChange={this.handleTitleChange}
+                                error={this.state.errorPostTitle}
+                                helperText={this.state.errorPostTitle || "Post title"} />
+                        </FormControl>
+                    </Grid>
+                    <Grid item xs={12} align="center">
+                        <FormControl fullWidth>
+                            <TextField
+                                variant="standard"
+                                required={true}
+                                fullWidth
+                                type="text"
+                                onChange={this.handleImageUrlChange}
+                                error={this.state.errorImageUrl}
+                                helperText={this.state.errorImageUrl || "Image url"} />
+                        </FormControl>
+                    </Grid>
+                    <Grid item xs={12} align="center">
+                        <FormControl fullWidth>
+                            <TextField
+                                required={true}
+                                fullWidth
+                                multiline
+                                variant="outlined"
+                                type="text"
+                                onChange={this.handleContentChange}
+                                error={this.state.errorContent}
+                                helperText={this.state.errorContent || "Content"} />
+                        </FormControl>
+                    </Grid>
+                    <Grid item xs={6} align="center">
+                        <Button color="primary" variant="contained" onClick={this.handlePublishButtonPressed}>
+                            Publish
+                        </Button>
+                    </Grid>
+                    <Grid item xs={6} align="center">
+                        <Button color="secondary" variant="contained" to="/" component={Link}>
+                            Cancel
+                        </Button>
+                    </Grid>
                 </Grid>
-                <Grid item xs={12} align="center">
-                    <FormControl fullWidth>
-                        <TextField
-                            required={true}
-                            fullWidth
-                            type="text"
-                            onChange={this.handleBlogNameChange}
-                            error={this.state.errorBlogName}
-                            helperText={this.state.errorBlogName || "Blog name"} />
-                    </FormControl>
-                </Grid>
-                <Grid item xs={12} align="center">
-                    <FormControl fullWidth>
-                        <TextField
-                            required={true}
-                            fullWidth
-                            type="text"
-                            onChange={this.handleTitleChange}
-                            error={this.state.errorPostTitle}
-                            helperText={this.state.errorPostTitle || "Post title"} />
-                    </FormControl>
-                </Grid>
-                <Grid item xs={12} align="center">
-                    <FormControl fullWidth>
-                        <TextField
-                            required={true}
-                            fullWidth
-                            type="text"
-                            onChange={this.handleImageUrlChange}
-                            error={this.state.errorImageUrl}
-                            helperText={this.state.errorImageUrl || "Image url"} />
-                    </FormControl>
-                </Grid>
-                <Grid item xs={12} align="center">
-                    <FormControl fullWidth>
-                        <TextField
-                            required={true}
-                            fullWidth
-                            multiline
-                            variant="outlined"
-                            type="text"
-                            onChange={this.handleContentChange}
-                            error={this.state.errorContent}
-                            helperText={this.state.errorContent || "Content"} />
-                    </FormControl>
-                </Grid>
-                <Grid item xs={6} align="center">
-                    <Button color="primary" variant="contained" onClick={this.handlePublishButtonPressed}>
-                        Publish
-                    </Button>
-                </Grid>
-                <Grid item xs={6} align="center">
-                    <Button color="secondary" variant="contained" to="/" component={Link}>
-                        Cancel
-                    </Button>
-                </Grid>
-            </Grid>
+            </Paper>
         );
     }
 }

@@ -11,6 +11,20 @@ class BlogView(generics.ListAPIView):
     queryset = Blog.objects.all()
     serializer_class = BlogSerializer
 
+class GetBlog(APIView):
+    serializer_class = BlogSerializer
+    lookup_url_kwarg = 'id'
+
+    def get(self, request, format=None):
+        id = request.GET.get(self.lookup_url_kwarg)
+        if id != None:
+            post = Blog.objects.filter(id=id)
+            if len(post) > 0:
+                data = BlogSerializer(post[0]).data
+                return Response(data, status=status.HTTP_200_OK)
+            return Response({"Blog not found": "Invalid post id."}, status=status.HTTP_404_NOT_FOUND)
+        return Response({"Bad request": "Id parameter not found in request"}, status=status.HTTP_400_BAD_REQUEST)
+
 class PostView(generics.ListAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer

@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import {
     Divider,
-    Typography } from "@material-ui/core";
+    Typography,
+    Chip,
+    Paper } from "@mui/material";
 
 export default class PostPage extends Component
 {
@@ -36,20 +38,19 @@ export default class PostPage extends Component
     render()
     {
         return (
-            <div>
+            <Paper elevation={2} style={{padding: "2%"}}>
                 <img src={this.state.image_url} style={{height: 360, width: "100%", objectFit: "cover"}}></img>
                 
                 <Typography component="h4" variant="h4" align="center">
                     {this.state.title}
                 </Typography>
-                <Typography variant="subtitle1" align="right">
-                    {this.state.blog_name} ({this.state.upload_date})
-                </Typography>
-                
+                <Divider>
+                    <Chip label={this.state.blog_name + ' (' + this.state.upload_date + ')'} />
+                </Divider>
                 <Typography variant="body1">
                     {this.state.content}
                 </Typography>
-            </div>
+            </Paper>
         );
     }
 }
