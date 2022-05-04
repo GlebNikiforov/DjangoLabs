@@ -64,7 +64,7 @@ export default class BlogPage extends Component
                     {this.state.postSet.slice(firstId, lastId).map((post, index) => {
                         return(
                             <Grid item xs={6}>
-                                <Button color="primary" variant="text" size="small" onClick={() => {window.location.pathname = '/post/' + (this.state.postSet.length - firstId - index)}}>
+                                <Button color="primary" variant="text" size="small" onClick={() => {window.location.pathname = '/post/' + (post.id)}}>
                                 <Grid container spacing={0}>
                                     <Grid item xs={12}>
                                         <img src={post.image_url} style={{height: 120, width: "100%", objectFit: "cover"}}></img>

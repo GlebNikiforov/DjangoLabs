@@ -2,10 +2,12 @@ from django.db import models
 
 # Create your models here.
 class Blog(models.Model):
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=64, unique=True)
     create_date = models.DateField(auto_now_add=True)
 
 class Post(models.Model):
+    id = models.AutoField(primary_key=True)
     blog_name = models.CharField(max_length=64)
     title = models.CharField(max_length=128)
     upload_date = models.DateField(auto_now_add=True)

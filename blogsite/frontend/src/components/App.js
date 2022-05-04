@@ -4,6 +4,7 @@ import HomePage from "./HomePage";
 import BlogPage from "./BlogPage";
 import PostPage from "./PostPage";
 import CreatePostPage from "./CreatePostPage";
+import CreateBlogPage from "./CreateBlogPage";
 import {
     BrowserRouter as Router,
     Routes,
@@ -37,6 +38,9 @@ export default class App extends Component
                             <Button href="/createpost" style={{color: 'white'}}>
                                 Create post
                             </Button>
+                            <Button href="/createblog" style={{color: 'white'}}>
+                                Create blog
+                            </Button>
                         </Container>
                     </AppBar>
                 </Grid>
@@ -47,6 +51,7 @@ export default class App extends Component
                             <Route path="/blog/:blogId" element={<BlogPage />} />
                             <Route path="/post/:postId" element={<PostPage />} />
                             <Route path="/createpost" element={<CreatePostPage />} />
+                            <Route path="/createblog" element={<CreateBlogPage />} />
                         </Routes>
                     </Router>
                 </Grid>

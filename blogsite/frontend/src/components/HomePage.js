@@ -36,9 +36,10 @@ export default class HomePage extends Component
     render()
     {
         let postCount = this.state.postSet.length;
-        let pagesCount = (postCount + 5) / 6;
+        let pagesCount = Math.ceil(postCount / 6);
         let firstId = 6*(this.state.currentPage-1);
         let lastId = 6*(this.state.currentPage);
+        console.log(postCount, pagesCount, firstId, lastId);
         return(
             <Grid container spacing={2}>
                 <Grid item xs={10}>
@@ -47,7 +48,7 @@ export default class HomePage extends Component
                             {this.state.postSet.slice(firstId, lastId).map((post, index) => {
                                 return(
                                     <Grid item xs={6}>
-                                        <Button color="primary" variant="text" size="small" onClick={() => {window.location.pathname = '/post/' + (this.state.postSet.length - firstId - index)}}>
+                                        <Button color="primary" variant="text" size="small" onClick={() => {window.location.pathname = '/post/' + (post.id)}}>
                                         <Grid container spacing={0}>
                                             <Grid item xs={12}>
                                                 <img src={post.image_url} style={{height: 120, width: "100%", objectFit: "cover"}}></img>
@@ -89,7 +90,7 @@ export default class HomePage extends Component
                             {this.state.blogSet.slice(0, 8).map((blog, index) => {
                                 return(
                                     <Grid item xs={12}>
-                                        <Button color="primary" variant="contained" style={{width:'100%'}} onClick={() => {window.location.pathname = '/blog/' + (this.state.blogSet.length - index)}}>
+                                        <Button color="primary" variant="contained" style={{width:'100%'}} onClick={() => {window.location.pathname = '/blog/' + (blog.id)}}>
                                             {blog.name}
                                         </Button>
                                     </Grid>
