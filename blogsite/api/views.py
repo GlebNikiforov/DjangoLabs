@@ -1,11 +1,13 @@
 from re import T
 from turtle import pos
 from django.shortcuts import render
+from django.contrib.auth.models import User
 from rest_framework import generics, status
-from .serializers import BlogSerializer, PostSerializer, CreatePostSerializer, CreateBlogSerializer
+from .serializers import BlogSerializer, PostSerializer, CreatePostSerializer, CreateBlogSerializer, UserSerializer
 from .models import Blog, Post
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.authtoken.models import Token
 
 # Create your views here.
 class BlogView(generics.ListAPIView):
@@ -118,3 +120,15 @@ class CreatePostView(APIView):
                 return Response(PostSerializer(post).data, status=status.HTTP_201_CREATED)
         
         return Response({'Bad Request': 'Invalid data...'}, status=status.HTTP_400_BAD_REQUEST)
+
+class UserCreate(APIView):
+    def post(self, request, format='json'):
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            user = serializer.save()
+            if user:
+                token = Token.objects.create(user=user)
+                json = serializer.data
+                json['token'] = token.key
+                return Response(json, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

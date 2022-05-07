@@ -40,17 +40,25 @@ export default class PostPage extends Component
         return (
             <Paper elevation={2} style={{padding: "2%"}}>
                 <img src={this.state.image_url} style={{height: 360, width: "100%", objectFit: "cover"}}></img>
-                
                 <Typography component="h4" variant="h4" align="center">
                     {this.state.title}
                 </Typography>
                 <Divider>
                     <Chip label={this.state.blog_name + ' (' + this.state.upload_date + ')'} />
                 </Divider>
-                <Typography variant="body1">
-                    {this.state.content}
-                </Typography>
+                    {this.state.content.split('\n').map((textline, index) =>{
+                        return(
+                            <Typography variant="body1" style={{textAlign: 'justify', textIndent: '60px'}}>
+                                    {textline}
+                            </Typography>
+                        )
+                    })}
             </Paper>
         );
     }
+    /* 
+                <Typography variant="body1" component="div">
+                    {this.state.content}
+                </Typography>
+                */
 }

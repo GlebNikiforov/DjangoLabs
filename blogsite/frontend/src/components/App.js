@@ -14,8 +14,10 @@ import {
     AppBar,
     Container,
     Button, 
+    ButtonGroup,
     Grid,
-    Paper } from "@mui/material";
+    Toolbar,
+    Typography } from "@mui/material";
 
 export default class App extends Component
 {
@@ -32,15 +34,26 @@ export default class App extends Component
                 <Grid item xs={12}>
                     <AppBar position="static">
                         <Container maxWidth="xl">
-                            <Button href="/" style={{color: 'white'}}>
-                                Main page
-                            </Button>
-                            <Button href="/createpost" style={{color: 'white'}}>
-                                Create post
-                            </Button>
-                            <Button href="/createblog" style={{color: 'white'}}>
-                                Create blog
-                            </Button>
+                            <ButtonGroup variant="text" aria-label="medium text button group">
+                                <Button href="/" style={{color: 'white'}}>
+                                    Main page
+                                </Button>
+                                <Button href="/createpost" style={{color: 'white'}}>
+                                    Create post
+                                </Button>
+                                <Button href="/createblog" style={{color: 'white'}}>
+                                    Create blog
+                                </Button>
+                                <Button href="/login" style={{color: 'white'}}>
+                                    Login
+                                </Button>
+                                <Button href="/register" style={{color: 'white'}}>
+                                    Register
+                                </Button>
+                                <Button href="/quit" style={{color: 'white'}}>
+                                    Quit
+                                </Button>
+                            </ButtonGroup>
                         </Container>
                     </AppBar>
                 </Grid>
@@ -50,8 +63,8 @@ export default class App extends Component
                             <Route exact path="/" element={<HomePage />} />
                             <Route path="/blog/:blogId" element={<BlogPage />} />
                             <Route path="/post/:postId" element={<PostPage />} />
-                            <Route path="/createpost" element={<CreatePostPage />} />
                             <Route path="/createblog" element={<CreateBlogPage />} />
+                            <Route path="/createpost" element={<CreatePostPage />} />
                         </Routes>
                     </Router>
                 </Grid>

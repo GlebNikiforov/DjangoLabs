@@ -6,6 +6,9 @@ class Blog(models.Model):
     name = models.CharField(max_length=64, unique=True)
     create_date = models.DateField(auto_now_add=True)
 
+    def __unicode__(self):
+        return self.name
+
 class Post(models.Model):
     id = models.AutoField(primary_key=True)
     blog_name = models.CharField(max_length=64)
@@ -13,3 +16,6 @@ class Post(models.Model):
     upload_date = models.DateField(auto_now_add=True)
     image_url = models.CharField(max_length=256)
     content = models.CharField(max_length=8192)
+
+    def __unicode__(self):
+        return self.blog_name
