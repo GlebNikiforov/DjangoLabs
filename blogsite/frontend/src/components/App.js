@@ -5,6 +5,8 @@ import BlogPage from "./BlogPage";
 import PostPage from "./PostPage";
 import CreatePostPage from "./CreatePostPage";
 import CreateBlogPage from "./CreateBlogPage";
+import LoginPage from "./LoginPage";
+import RegisterPage from "./RegisterPage";
 import {
     BrowserRouter as Router,
     Routes,
@@ -65,6 +67,8 @@ export default class App extends Component
                             <Route path="/post/:postId" element={<PostPage />} />
                             <Route path="/createblog" element={<CreateBlogPage />} />
                             <Route path="/createpost" element={<CreatePostPage />} />
+                            <Route path="/login" element={<LoginPage />} />
+                            <Route path="/register" element={<RegisterPage />} />
                         </Routes>
                     </Router>
                 </Grid>

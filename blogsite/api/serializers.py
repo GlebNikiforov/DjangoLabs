@@ -24,16 +24,11 @@ class CreatePostSerializer(serializers.ModelSerializer):
         fields = ('blog_name', 'title', 'image_url', 'content')
 
 class UserSerializer(serializers.ModelSerializer):
-    username = serializers.CharField(
-        max_length=32,
-        validators=[UniqueValidator(queryset=User.objects.all())]
-    )
-    password = serializers.CharField(min_length = 4, write_only=True)
-    def create(self, validated_data):
-        user = User.objects.create_user(validated_data['username'])
-        user.set_password(validated_data['password'])
-        user.save()
-        return user
     class Meta:
         model = User
         fields = ('id', 'username', 'password')
+
+class UserReglogSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('username', 'password')

@@ -36,7 +36,6 @@ export default class CreatePostPage extends Component {
         return false;
     }
     handleCreateButtonPressed() {
-        console.log("pressed")
         if (this.hasErrors()) {
             return;
         }
@@ -47,16 +46,14 @@ export default class CreatePostPage extends Component {
                 name: this.state.name,
             })
         };
-        console.log(requestOptions)
         fetch("api/createblog", requestOptions)
             .then((response) => response.json())
-            .then((data)     => { 
-                console.log(data), window.location.pathname = '/'});
+            .then((data)     => { window.location.pathname = '/' });
     }
 
     render() {
         return(
-            <Paper elevation={2} style={{padding: "2%"}}>
+            <Paper elevation={2} style={{padding: "2%", maxWidth: "400px", margin: "auto"}}>
                 <Grid container spacing={1}>
                     <Grid item xs={12} align="center">
                         <Typography component="h4" variant="h4">
