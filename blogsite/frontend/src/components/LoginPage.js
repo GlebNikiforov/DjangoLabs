@@ -53,16 +53,9 @@ export default class LoginPage extends Component {
         if (this.hasErrors()) {
             return;
         }
-        /*const requestOptions = {
-            method: "POST",
-            headers: { "Content-Type": "application/json"},
-            body: JSON.stringify({
-                name: this.state.name,
-            })
-        };
-        fetch("api/createblog", requestOptions)
+        fetch(`api/userlogin?username=${this.state.login}&password=${this.state.password}`)
             .then((response) => response.json())
-            .then((data)     => { window.location.pathname = '/' });*/
+            .then((data)     => { window.location.pathname = '/' });
     }
 
     render() {

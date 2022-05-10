@@ -26,6 +26,29 @@ export default class App extends Component
     constructor(props)
     {
         super(props);
+        this.state = {
+            username: "",
+            isLogged: false
+        }
+        this.getUserDetails();
+        this.handleUserLogout = this.handleUserLogout.bind(this);
+    }
+
+    getUserDetails() {
+        fetch('/api/currentuser')
+            .then((response) => response.json())
+            .then((data) => {
+                this.setState({
+                    username: data?.username,
+                    isLogged: data?.username ? true : false
+                })
+            });
+    }
+
+    handleUserLogout() {
+        fetch(`api/userlogout`)
+            .then((response) => response.json())
+            .then((data)     => { window.location.pathname = '/' });
     }
 
     render()
@@ -40,21 +63,27 @@ export default class App extends Component
                                 <Button href="/" style={{color: 'white'}}>
                                     Main page
                                 </Button>
-                                <Button href="/createpost" style={{color: 'white'}}>
-                                    Create post
-                                </Button>
-                                <Button href="/createblog" style={{color: 'white'}}>
-                                    Create blog
-                                </Button>
-                                <Button href="/login" style={{color: 'white'}}>
-                                    Login
-                                </Button>
-                                <Button href="/register" style={{color: 'white'}}>
-                                    Register
-                                </Button>
-                                <Button href="/quit" style={{color: 'white'}}>
-                                    Quit
-                                </Button>
+                                {this.state.isLogged ? (<>
+                                    <Button href="/createpost" style={{color: 'white'}}>
+                                        Create post
+                                    </Button>
+                                    <Button href="/createblog" style={{color: 'white'}}>
+                                        Create blog
+                                    </Button>
+                                    <Button onClick={this.handleUserLogout} style={{color: 'white'}}>
+                                        Quit
+                                    </Button>
+                                </>) : (<>
+                                    <Button href="/login" style={{color: 'white'}}>
+                                        Login
+                                    </Button>
+                                    <Button href="/register" style={{color: 'white'}}>
+                                        Register
+                                    </Button>
+                                </>)}
+                                <Typography align='right'>
+                                    {this.state.username || "Guest"}
+                                </Typography>
                             </ButtonGroup>
                         </Container>
                     </AppBar>

@@ -37,9 +37,8 @@ export default class HomePage extends Component
     {
         let postCount = this.state.postSet.length;
         let pagesCount = Math.ceil(postCount / 6);
-        let firstId = 6*(this.state.currentPage-1);
-        let lastId = 6*(this.state.currentPage);
-        console.log(postCount, pagesCount, firstId, lastId);
+        let firstId = 6 * (this.state.currentPage - 1);
+        let lastId = 6 * (this.state.currentPage);
         return(
             <Grid container spacing={2}>
                 <Grid item xs={10}>

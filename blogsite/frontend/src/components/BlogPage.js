@@ -50,8 +50,8 @@ export default class BlogPage extends Component
     {
         let postCount = this.state.postSet.length;
         let pagesCount = (postCount + 5) / 6;
-        let firstId = 6*(this.state.currentPage-1);
-        let lastId = 6*(this.state.currentPage);
+        let firstId = 6 * (this.state.currentPage - 1);
+        let lastId = 6 * (this.state.currentPage);
         return(
             <Paper elevation={2} style={{padding: "2%"}}>
                 <Typography component="h4" variant="h4" align="center">

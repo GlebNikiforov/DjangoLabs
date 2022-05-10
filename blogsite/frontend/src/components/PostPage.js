@@ -48,7 +48,7 @@ export default class PostPage extends Component
                 </Divider>
                     {this.state.content.split('\n').map((textline, index) =>{
                         return(
-                            <Typography variant="body1" style={{textAlign: 'justify', textIndent: '60px'}}>
+                            <Typography variant="body1" style={{textAlign: 'justify', textIndent: '30px'}}>
                                     {textline}
                             </Typography>
                         )
@@ -56,9 +56,4 @@ export default class PostPage extends Component
             </Paper>
         );
     }
-    /* 
-                <Typography variant="body1" component="div">
-                    {this.state.content}
-                </Typography>
-                */
 }
