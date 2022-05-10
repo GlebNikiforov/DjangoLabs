@@ -28,7 +28,8 @@ export default class App extends Component
         super(props);
         this.state = {
             username: "",
-            isLogged: false
+            isLogged: false,
+            isAdmin: false
         }
         this.getUserDetails();
         this.handleUserLogout = this.handleUserLogout.bind(this);
@@ -40,7 +41,8 @@ export default class App extends Component
             .then((data) => {
                 this.setState({
                     username: data?.username,
-                    isLogged: data?.username ? true : false
+                    isLogged: data?.username ? true : false,
+                    isAdmin: data?.isAdmin
                 })
             });
     }
@@ -58,18 +60,23 @@ export default class App extends Component
             <Grid container spacing={4}>
                 <Grid item xs={12}>
                     <AppBar position="static">
-                        <Container maxWidth="xl">
+                        <Container maxWidth="xl" style={{display: 'flex', justifyContent: 'space-between'}}>
                             <ButtonGroup variant="text" aria-label="medium text button group">
                                 <Button href="/" style={{color: 'white'}}>
                                     Main page
                                 </Button>
-                                {this.state.isLogged ? (<>
-                                    <Button href="/createpost" style={{color: 'white'}}>
-                                        Create post
-                                    </Button>
-                                    <Button href="/createblog" style={{color: 'white'}}>
-                                        Create blog
-                                    </Button>
+                                { this.state.isLogged && this.state.isAdmin && (<>
+                                        <Button href="/createpost" style={{color: 'white'}}>
+                                            Create post
+                                        </Button>
+                                        <Button href="/createblog" style={{color: 'white'}}>
+                                            Create blog
+                                        </Button>
+                                    </>)
+                                }
+                            </ButtonGroup>
+                            <ButtonGroup variant="text" aria-lable="medium text button group" style={{alignItems: 'center'}}>
+                                { this.state.isLogged ? (<>
                                     <Button onClick={this.handleUserLogout} style={{color: 'white'}}>
                                         Quit
                                     </Button>
@@ -81,9 +88,21 @@ export default class App extends Component
                                         Register
                                     </Button>
                                 </>)}
-                                <Typography align='right'>
-                                    {this.state.username || "Guest"}
-                                </Typography>
+                                { this.state.isLogged ? (<>{
+                                    this.state.isAdmin ? (
+                                        <Typography style={{color: '#FF9999'}}>
+                                            {this.state.username}
+                                        </Typography>
+                                    ) : (
+                                        <Typography style={{color: '#FFFF99'}}>
+                                            {this.state.username}
+                                        </Typography>
+                                    )
+                                }</>) : (<>
+                                    <Typography style={{color: '#99FF99'}}>
+                                        Guest
+                                    </Typography>
+                                </>)}
                             </ButtonGroup>
                         </Container>
                     </AppBar>
@@ -94,8 +113,14 @@ export default class App extends Component
                             <Route exact path="/" element={<HomePage />} />
                             <Route path="/blog/:blogId" element={<BlogPage />} />
                             <Route path="/post/:postId" element={<PostPage />} />
-                            <Route path="/createblog" element={<CreateBlogPage />} />
-                            <Route path="/createpost" element={<CreatePostPage />} />
+                            { this.state.isAdmin ? (<>
+                                    <Route path="/createblog" element={<CreateBlogPage />} />
+                                    <Route path="/createpost" element={<CreatePostPage />} />
+                                </>) :(<>
+                                    <Route path="/createblog" element={<HomePage />} />
+                                    <Route path="/createpost" element={<HomePage />} />
+                                </>)
+                            }
                             <Route path="/login" element={<LoginPage />} />
                             <Route path="/register" element={<RegisterPage />} />
                         </Routes>

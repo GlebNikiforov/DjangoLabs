@@ -20,6 +20,7 @@ class Post(models.Model):
     upload_date = models.DateField(auto_now_add=True)
     image_url = models.CharField(max_length=256)
     content = models.CharField(max_length=8192)
+    authorId = models.DecimalField(decimal_places=0, max_digits=20)
 
     def __unicode__(self):
         return self.blog_name

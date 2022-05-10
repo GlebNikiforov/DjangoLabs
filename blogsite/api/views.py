@@ -109,22 +109,24 @@ class CreatePostView(APIView):
             image_url = serializer.data.get('image_url')
             content   = serializer.data.get('content')
             title     = serializer.data.get('title')
+            author    = self.request.session.get('userId')
             queryset  = Post.objects.filter(title=title)
 
             if queryset.exists():
                 post = queryset[0]
                 post.blog_name = blog_name
                 post.image_url = image_url
-                post.content = content
+                post.content   = content
                 post.save(
                     update_fields=['blog_name', 'image_url', 'content'])
                 return Response(PostSerializer(post).data, status=status.HTTP_200_OK)
             else:
                 post = Post(
-                    blog_name=blog_name,
-                    image_url=image_url,
-                    content=content,
-                    title=title)
+                    blog_name = blog_name,
+                    image_url = image_url,
+                    content   = content,
+                    title     = title,
+                    author    = author)
                 post.save()
             
                 return Response(PostSerializer(post).data, status=status.HTTP_201_CREATED)
@@ -184,5 +186,6 @@ class CurrentUser(APIView):
             user = User.objects.filter(id = userId)
             if len(user) > 0:
                 data = UserSerializer(user[0]).data
+                data['isAdmin'] = user[0].is_superuser
                 return JsonResponse(data, status=status.HTTP_200_OK)
         return JsonResponse({"No such user" : "User is not authorized"}, status=status.HTTP_404_NOT_FOUND)
