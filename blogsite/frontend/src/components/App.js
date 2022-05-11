@@ -5,6 +5,7 @@ import BlogPage from "./BlogPage";
 import PostPage from "./PostPage";
 import CreatePostPage from "./CreatePostPage";
 import CreateBlogPage from "./CreateBlogPage";
+import EditPostPage from "./EditPostPage";
 import LoginPage from "./LoginPage";
 import RegisterPage from "./RegisterPage";
 import {
@@ -116,9 +117,11 @@ export default class App extends Component
                             { this.state.isAdmin ? (<>
                                     <Route path="/createblog" element={<CreateBlogPage />} />
                                     <Route path="/createpost" element={<CreatePostPage />} />
+                                    <Route path="/editpost/:postId" element={<EditPostPage />} />
                                 </>) :(<>
                                     <Route path="/createblog" element={<HomePage />} />
                                     <Route path="/createpost" element={<HomePage />} />
+                                    <Route path="/editpost/:postId" element={<HomePage />} />
                                 </>)
                             }
                             <Route path="/login" element={<LoginPage />} />
@@ -132,4 +135,4 @@ export default class App extends Component
 }
 
 const appDiv = document.getElementById("app");
-render(<App name="World" />, appDiv);
+render(<App />, appDiv);

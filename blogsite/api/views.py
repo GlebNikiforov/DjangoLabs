@@ -109,7 +109,7 @@ class CreatePostView(APIView):
             image_url = serializer.data.get('image_url')
             content   = serializer.data.get('content')
             title     = serializer.data.get('title')
-            author    = self.request.session.get('userId')
+            authorId  = self.request.session.get('userId')
             queryset  = Post.objects.filter(title=title)
 
             if queryset.exists():
@@ -126,7 +126,7 @@ class CreatePostView(APIView):
                     image_url = image_url,
                     content   = content,
                     title     = title,
-                    author    = author)
+                    authorId  = authorId)
                 post.save()
             
                 return Response(PostSerializer(post).data, status=status.HTTP_201_CREATED)
@@ -145,13 +145,9 @@ class UserCreate(APIView):
     def post(self, request, format='json'):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
-            #user = serializer.save()
             user = serializer.create(request.data)
             if user:
-                token = Token.objects.create(user=user)
-                json = serializer.data
-                json['token'] = token.key
-                return Response(json, status=status.HTTP_201_CREATED)
+                return Response(user, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class UserLogin(APIView):

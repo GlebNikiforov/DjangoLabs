@@ -3,7 +3,9 @@ import {
     Divider,
     Typography,
     Chip,
-    Paper } from "@mui/material";
+    Paper, 
+    Button} from "@mui/material";
+import { Box } from "@mui/system";
 
 export default class PostPage extends Component
 {
@@ -15,14 +17,18 @@ export default class PostPage extends Component
             title: "",
             upload_date: "",
             image_url: "https://www.ndca.org/co/images/stock/no-image.png",
-            content: ""
+            content: "",
+            author_id: 0,
+            user_id: -1,
+            is_author: false
         }
-        this.postId = window.location.pathname.substr(window.location.pathname.lastIndexOf('/') + 1);
+        this.state.postId = window.location.pathname.substr(window.location.pathname.lastIndexOf('/') + 1);
         this.getPostDetails();
+        this.getCurrentUserId();
     }
 
     getPostDetails() {
-        fetch('/api/getpost?id=' + this.postId)
+        fetch('/api/getpost?id=' + this.state.postId)
             .then((response) => response.json())
             .then((data) => {
                 this.setState({
@@ -30,7 +36,19 @@ export default class PostPage extends Component
                     title: data.title,
                     upload_date: data.upload_date,
                     image_url: data.image_url,
-                    content: data.content
+                    content: data.content,
+                    author_id: data.authorId
+                })
+            });
+    }
+    
+    getCurrentUserId() {
+        fetch('/api/currentuser')
+            .then((response) => response.json())
+            .then((data) => {
+                this.setState({
+                    user_id: data.id,
+                    is_author: data.id == this.state.author_id
                 })
             });
     }
@@ -53,6 +71,14 @@ export default class PostPage extends Component
                             </Typography>
                         )
                     })}
+                {this.state.is_author && (
+                    <Box style={{display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-end'}}>
+                        <Button onClick={() => window.location.pathname = ("editpost/" + this.state.postId)} variant="contained">
+                            Edit
+                        </Button>
+                    </Box>
+                    
+                )}
             </Paper>
         );
     }
