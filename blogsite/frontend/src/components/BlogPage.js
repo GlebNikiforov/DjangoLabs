@@ -25,6 +25,10 @@ export default class BlogPage extends Component
         this.getPostSet();
     }
 
+    componentDidMount() {
+        document.title = "Blog Site - Blog View"
+    }
+
     getBlogDetails() {
         fetch('/api/getblog?id=' + this.blogId)
             .then((response) => response.json())

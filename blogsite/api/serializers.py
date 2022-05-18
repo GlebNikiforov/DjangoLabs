@@ -25,6 +25,11 @@ class CreatePostSerializer(serializers.ModelSerializer):
         fields = ('blog_name', 'title', 'image_url', 'content')
 
 class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'password')
+
+class UserCreateSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         user = User.objects.create_user(
             username=validated_data['username'],
@@ -33,4 +38,4 @@ class UserSerializer(serializers.ModelSerializer):
         return user
     class Meta:
         model = User
-        fields = ('id', 'username', 'password')
+        fields = ('username', 'password')

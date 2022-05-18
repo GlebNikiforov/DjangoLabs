@@ -24,6 +24,10 @@ export default class RegisterPage extends Component {
         this.handleCreateButtonPressed = this.handleCreateButtonPressed.bind(this);
     }
 
+    componentDidMount() {
+        document.title = "Blog Site - Registration"
+    }
+
     handleLoginChange(e) {
         console.log("changed")
         this.setState({
@@ -53,16 +57,17 @@ export default class RegisterPage extends Component {
         if (this.hasErrors()) {
             return;
         }
-        /*const requestOptions = {
+        const requestOptions = {
             method: "POST",
             headers: { "Content-Type": "application/json"},
             body: JSON.stringify({
-                name: this.state.name,
+                username: this.state.login,
+                password: this.state.password
             })
         };
-        fetch("api/createblog", requestOptions)
+        fetch("api/createuser", requestOptions)
             .then((response) => response.json())
-            .then((data)     => { window.location.pathname = '/' });*/
+            .then((data)     => { window.location.pathname = '/' });
     }
 
     render() {

@@ -10,7 +10,7 @@ class Blog(models.Model):
     name = models.CharField(max_length=64, unique=True)
     create_date = models.DateField(auto_now_add=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 class Post(models.Model):
@@ -22,5 +22,5 @@ class Post(models.Model):
     content = models.CharField(max_length=8192)
     authorId = models.DecimalField(decimal_places=0, max_digits=20)
 
-    def __unicode__(self):
-        return self.blog_name
+    def __str__(self):
+        return self.title

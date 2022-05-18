@@ -21,6 +21,10 @@ export default class CreatePostPage extends Component {
         this.handleCreateButtonPressed = this.handleCreateButtonPressed.bind(this);
     }
 
+    componentDidMount() {
+        document.title = "Blog Site - Blog Creating"
+    }
+
     handleBlogNameChange(e) {
         console.log("changed")
         this.setState({

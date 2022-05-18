@@ -24,6 +24,10 @@ export default class LoginPage extends Component {
         this.handleCreateButtonPressed = this.handleCreateButtonPressed.bind(this);
     }
 
+    componentDidMount() {
+        document.title = "Blog Site - Login"
+    }
+
     handleLoginChange(e) {
         console.log("changed")
         this.setState({

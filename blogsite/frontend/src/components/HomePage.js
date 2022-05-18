@@ -21,6 +21,10 @@ export default class HomePage extends Component
         this.getBlogSet();
     }
 
+    componentDidMount() {
+        document.title = "Blog Site - Main Page"
+    }
+
     getPostSet() {
         fetch('/api/post')
             .then((response) => response.json())

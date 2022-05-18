@@ -7,7 +7,7 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from rest_framework import generics, status
-from .serializers import BlogSerializer, PostSerializer, CreatePostSerializer, CreateBlogSerializer, UserSerializer
+from .serializers import BlogSerializer, PostSerializer, UserCreateSerializer, CreatePostSerializer, CreateBlogSerializer, UserSerializer
 from .models import Blog, Post
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -143,7 +143,7 @@ class UserDetail(generics.RetrieveAPIView):
 
 class UserCreate(APIView):
     def post(self, request, format='json'):
-        serializer = UserSerializer(data=request.data)
+        serializer = UserCreateSerializer(data=request.data)
         if serializer.is_valid():
             user = serializer.create(request.data)
             if user:

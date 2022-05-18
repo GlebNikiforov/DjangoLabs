@@ -27,6 +27,10 @@ export default class PostPage extends Component
         this.getCurrentUserId();
     }
 
+    componentDidMount() {
+        document.title = "Blog Site - Post View"
+    }
+
     getPostDetails() {
         fetch('/api/getpost?id=' + this.state.postId)
             .then((response) => response.json())

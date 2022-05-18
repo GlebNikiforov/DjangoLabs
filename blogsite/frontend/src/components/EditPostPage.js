@@ -30,6 +30,11 @@ export default class CreatePostPage extends Component {
         this.handleContentChange = this.handleContentChange.bind(this);
         this.handlePublishButtonPressed = this.handlePublishButtonPressed.bind(this);
     }
+
+    componentDidMount() {
+        document.title = "Blog Site - Post Edit"
+    }
+
     getPostDetails() {
         fetch('/api/getpost?id=' + this.state.postId)
             .then((response) => response.json())
